@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# Проверка на наличие репозитория Backports
+if ! grep -q "backports" /etc/apt/sources.list; then
+    echo "Репозиторий Backports отсутствует. Добавляем его..."
+
+    # Добавление репозитория Backports
+    echo "deb http://deb.debian.org/debian buster-backports main" | sudo tee -a /etc/apt/sources.list
+fi
+
+# Обновление пакетного менеджера
+echo "Обновление пакетного менеджера..."
+sudo apt update
+
+# Установка Apache2
+echo "Установка и запуск Apache2..."
+sudo apt install apache2 -y
+sudo systemctl start apache2
+
+# Установка Python
+echo "Установка Python..."
+sudo apt install python3 -y
+
+# Установка и поднятие SSH-сервера
+echo "Установка и поднятие SSH-сервера..."
+sudo apt install openssh-server -y
+sudo systemctl start ssh
+
+# Установка Python 3.8
+echo "Установка Python 3.8..."
+sudo apt install python3.8 -y
+
+# Установка Docker
+echo "Установка Docker..."
+sudo apt install docker.io -y
+
+# Установка Google Chrome
+echo "Установка Google Chrome..."
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb
+sudo apt --fix-broken install -y
+
+# Установка Notepad++
+echo "Установка Notepad++..."
+sudo snap install notepad-plus-plus
+
+# Установка VLC Player
+echo "Установка VLC Player..."
+sudo apt install vlc -y
